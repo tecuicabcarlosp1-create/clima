@@ -60,12 +60,12 @@ clima-app/
 | Herramienta | Para qué la usé |
 |---|---|
 | Claude | Generar la primera versión del código (HTML, CSS, JS) y este README |
-| [COMPLETA: Copilot / ChatGPT / otra] | [COMPLETA: depurar, explicar errores, escribir pruebas...] |
+
 
 **Qué hice yo sin ayuda de IA**
 
-- [COMPLETA: por ejemplo, cambios de diseño, pruebas manuales de errores, commits, despliegue, la demostración]
+-  cambios de diseño, pruebas manuales de errores, commits, despliegue, la demostración]
 
 ## Autor
 
-[Tu nombre] · [Tu perfil de GitHub]
+carlos alejandro
