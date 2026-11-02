@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Clima de la semana</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="src/css/styles.css">
+</head>
+<!-- data-theme cambia según el clima y la hora del día (lo asigna app.js) -->
+<body data-theme="dia">
+  <main class="app">
+    <header class="top">
+      <form id="search-form" class="search" autocomplete="off">
+        <label for="city-input" class="sr-only">Ciudad</label>
+        <input id="city-input" type="text" placeholder="Busca una ciudad, por ejemplo Valladolid" required minlength="2">
+        <button type="submit">Buscar</button>
+      </form>
+      <button id="unit-toggle" class="unit-toggle" type="button" aria-pressed="false" aria-label="Cambiar entre grados Celsius y Fahrenheit">°C</button>
+    </header>
+
+    <!-- Mensajes de estado: carga y errores -->
+    <p id="status" class="status" role="status" aria-live="polite" hidden></p>
+
+    <!-- Lista de coincidencias cuando hay varias ciudades con el mismo nombre -->
+    <ul id="matches" class="matches" hidden></ul>
+
+    <!-- Clima actual -->
+    <section id="current" class="current" hidden>
+      <p id="place" class="place"></p>
+      <div class="hero">
+        <p class="temp"><span id="temp"></span><span class="unit" id="unit-label">°C</span></p>
+        <div id="icon" class="icon" aria-hidden="true"></div>
+      </div>
+      <p id="condition" class="condition"></p>
+      <dl class="facts">
+        <div><dt>Sensación</dt><dd id="feels"></dd></div>
+        <div><dt>Máx / Mín hoy</dt><dd id="today"></dd></div>
+        <div><dt>Humedad</dt><dd id="humidity"></dd></div>
+        <div><dt>Viento</dt><dd id="wind"></dd></div>
+      </dl>
+    </section>
+
+    <!-- Pronóstico de 7 días -->
+    <section id="forecast" class="forecast" hidden aria-label="Pronóstico de 7 días">
+      <ol id="days"></ol>
+    </section>
+
+    <footer class="credits">
+      Datos del clima de <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo.com</a> (licencia CC BY 4.0)
+    </footer>
+  </main>
+
+  <script src="src/js/app.js"></script>
+</body>
+</html>

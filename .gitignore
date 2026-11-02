@@ -1,0 +1,7 @@
+# Claves y variables de entorno: nunca se suben al repositorio
+.env
+.env.*
+!.env.example
+
+node_modules/
+.DS_Store

@@ -1,0 +1,151 @@
+/* ---------- Temas: el fondo cambia con el clima y la hora ---------- */
+:root, [data-theme="dia"] {
+  --fondo-1: #bfe3f2; --fondo-2: #f7e7c6;
+  --tinta: #0f2a35; --tinta-suave: rgba(15, 42, 53, 0.72);
+  --panel: rgba(255, 255, 255, 0.55); --linea: rgba(15, 42, 53, 0.16);
+  --acento: #0e5a66; --acento-tinta: #ffffff;
+  --frio: #2f8fb0; --calido: #f2a93b;
+  --sol: #f2a93b; --luna: #e8ecff; --nube: #ffffff; --lluvia: #2f8fb0;
+  --error: #9c2d24; --error-fondo: rgba(255, 255, 255, 0.75);
+}
+[data-theme="noche"] {
+  --fondo-1: #0b1530; --fondo-2: #2a3270;
+  --tinta: #eaf0ff; --tinta-suave: rgba(234, 240, 255, 0.72);
+  --panel: rgba(255, 255, 255, 0.08); --linea: rgba(234, 240, 255, 0.18);
+  --acento: #9db7ff; --acento-tinta: #0b1530;
+  --frio: #7aa2ff; --calido: #ffd27a;
+  --nube: #c9d3f0; --lluvia: #8fb4ff;
+  --error: #ffb3a8; --error-fondo: rgba(0, 0, 0, 0.35);
+}
+[data-theme="nublado"] {
+  --fondo-1: #d3dbe0; --fondo-2: #9fb0ba;
+  --tinta: #14232b; --tinta-suave: rgba(20, 35, 43, 0.74);
+  --panel: rgba(255, 255, 255, 0.42); --linea: rgba(20, 35, 43, 0.18);
+  --acento: #1d5668; --acento-tinta: #ffffff;
+  --frio: #3f7f96; --calido: #e0a13a;
+  --nube: #ffffff; --lluvia: #2f6f8a;
+}
+[data-theme="lluvia"] {
+  --fondo-1: #46697a; --fondo-2: #1d3340;
+  --tinta: #eaf4f7; --tinta-suave: rgba(234, 244, 247, 0.74);
+  --panel: rgba(255, 255, 255, 0.09); --linea: rgba(234, 244, 247, 0.2);
+  --acento: #8fd0e0; --acento-tinta: #10242b;
+  --frio: #7fc4d8; --calido: #f2c26b;
+  --nube: #c4d3da; --lluvia: #8fd0e0;
+  --error: #ffb3a8; --error-fondo: rgba(0, 0, 0, 0.35);
+}
+[data-theme="tormenta"] {
+  --fondo-1: #34305a; --fondo-2: #10111d;
+  --tinta: #f0eefb; --tinta-suave: rgba(240, 238, 251, 0.74);
+  --panel: rgba(255, 255, 255, 0.08); --linea: rgba(240, 238, 251, 0.2);
+  --acento: #f2c94c; --acento-tinta: #14121f;
+  --frio: #8f8ae0; --calido: #f2c94c;
+  --nube: #aaa6c9; --lluvia: #9fb8ff;
+  --error: #ffb3a8; --error-fondo: rgba(0, 0, 0, 0.4);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(170deg, var(--fondo-1), var(--fondo-2)) fixed;
+  color: var(--tinta);
+  font-family: "Bricolage Grotesque", system-ui, sans-serif;
+  line-height: 1.5;
+}
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+.app { max-width: 680px; margin: 0 auto; padding: 24px 20px 40px; }
+:focus-visible { outline: 3px solid var(--calido); outline-offset: 2px; }
+
+/* ---------- Búsqueda ---------- */
+.top { display: flex; gap: 10px; align-items: stretch; }
+.search { flex: 1; display: flex; gap: 8px; min-width: 0; }
+.search input {
+  flex: 1; min-width: 0; padding: 12px 14px; font: inherit; color: inherit;
+  background: var(--panel); border: 1px solid var(--linea); border-radius: 12px;
+  backdrop-filter: blur(8px);
+}
+.search input::placeholder { color: var(--tinta-suave); }
+.search button, .unit-toggle {
+  font: inherit; font-weight: 600; cursor: pointer; border-radius: 12px;
+}
+.search button { padding: 12px 18px; background: var(--acento); color: var(--acento-tinta); border: 0; }
+.unit-toggle {
+  padding: 0 14px; min-width: 52px; color: var(--tinta);
+  background: var(--panel); border: 1px solid var(--linea); backdrop-filter: blur(8px);
+}
+
+/* ---------- Mensajes ---------- */
+.status { margin: 20px 0 0; padding: 12px 14px; border-radius: 12px; background: var(--panel); }
+.status.error { background: var(--error-fondo); color: var(--error); border: 1px solid var(--error); }
+
+.matches { list-style: none; margin: 16px 0 0; padding: 0; display: grid; gap: 8px; }
+.matches button {
+  width: 100%; text-align: left; padding: 12px 14px; font: inherit; color: inherit; cursor: pointer;
+  background: var(--panel); border: 1px solid var(--linea); border-radius: 12px;
+}
+.matches button:hover { border-color: var(--acento); }
+
+/* ---------- Clima actual: lo más grande de la página ---------- */
+.current { margin-top: 40px; animation: aparece 0.5s ease-out; }
+@keyframes aparece { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+.place { margin: 0; font-size: 1.15rem; font-weight: 600; }
+.hero { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.temp {
+  margin: 0; font-size: clamp(6.5rem, 30vw, 11rem); font-weight: 800;
+  line-height: 1; letter-spacing: -0.05em; font-variant-numeric: tabular-nums;
+}
+.unit { font-size: 0.28em; font-weight: 600; vertical-align: top; margin-left: 4px; color: var(--acento); }
+.icon { flex: none; width: clamp(88px, 26vw, 150px); }
+.icon svg, .day-icon svg { display: block; width: 100%; height: auto; filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.18)); }
+.condition { margin: 4px 0 24px; font-size: 1.35rem; color: var(--tinta-suave); }
+
+.facts {
+  display: grid; grid-template-columns: repeat(4, auto); justify-content: start; gap: 0;
+  margin: 0; border-top: 1px solid var(--linea); border-bottom: 1px solid var(--linea);
+}
+.facts > div { padding: 14px 24px 14px 0; margin-right: 24px; border-right: 1px solid var(--linea); }
+.facts > div:last-child { border-right: 0; margin-right: 0; }
+.facts dt { font-size: 0.85rem; color: var(--tinta-suave); }
+.facts dd { margin: 0; font-weight: 600; font-size: 1.15rem; font-variant-numeric: tabular-nums; }
+
+/* ---------- Pronóstico ---------- */
+.forecast {
+  margin-top: 32px; padding: 6px 18px; border-radius: 20px;
+  background: var(--panel); border: 1px solid var(--linea); backdrop-filter: blur(10px);
+}
+.forecast ol { list-style: none; margin: 0; padding: 0; }
+.day {
+  display: grid; grid-template-columns: 2.4rem 3.4rem 1fr 6rem; align-items: center; gap: 12px;
+  padding: 12px 0; border-top: 1px solid var(--linea);
+}
+.day:first-child { border-top: 0; }
+.day-icon { width: 2.4rem; }
+.day-name { font-weight: 600; text-transform: capitalize; }
+.day-desc { font-size: 0.8rem; color: var(--tinta-suave); line-height: 1.2; }
+.range { position: relative; height: 8px; border-radius: 4px; background: var(--linea); }
+.range span { position: absolute; top: 0; bottom: 0; border-radius: 4px; background: linear-gradient(90deg, var(--frio), var(--calido)); }
+.day-temps { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
+.day-temps small { font-weight: 400; color: var(--tinta-suave); font-size: 1em; }
+
+.credits { margin-top: 28px; font-size: 0.8rem; color: var(--tinta-suave); }
+.credits a { color: inherit; }
+
+/* ---------- Pantallas pequeñas ---------- */
+@media (max-width: 520px) {
+  .facts { grid-template-columns: 1fr 1fr; }
+  .facts > div { margin-right: 0; padding-right: 12px; border-right: 0; border-bottom: 1px solid var(--linea); }
+  .facts > div:nth-last-child(-n+2) { border-bottom: 0; }
+  .day { grid-template-columns: 2rem 2.6rem 1fr 5rem; gap: 8px; }
+  .day-icon { width: 2rem; }
+  .day-desc { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) { .current { animation: none; } }
